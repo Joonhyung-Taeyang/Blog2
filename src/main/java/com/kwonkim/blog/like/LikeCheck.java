@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Like {
+public class LikeCheck {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
