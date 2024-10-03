@@ -1,4 +1,4 @@
 package com.kwonkim.blog.comment;
 
-public class CommentController {
+public class CommentRestController {
 }
