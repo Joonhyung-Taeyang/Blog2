@@ -33,7 +33,7 @@ public class Post {
     @Column(name = "post_content", nullable = false)
     private String content;
 
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "post")
     private List<Comment> comment = new ArrayList<>();
 
     @Column(name = "isDelete", nullable = false)
