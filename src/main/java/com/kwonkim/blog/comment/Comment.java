@@ -26,7 +26,7 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY) // FetchType을 lazy로 두면 실제 객체를 사용하는 시점에 쿼리를 날린다.
     @JoinColumn(name = "post_id", nullable = false)
-    private List<Post> post = new ArrayList<>();
+    private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
