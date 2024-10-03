@@ -38,5 +38,4 @@ public class Post {
 
     @Column(name = "isDelete", nullable = false)
     protected boolean isDelete;
-
 }
