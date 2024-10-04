@@ -18,7 +18,6 @@ public class UserRestController {
 
     private final UserService userService;
 
-    @ResponseBody
     @PostMapping("/signin")
     public ResponseEntity<ResponseCheck> SignIn(@RequestBody UserCreate userInfo)
     {
