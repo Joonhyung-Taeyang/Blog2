@@ -44,6 +44,11 @@ public class UserService {
 
     public int LogIn(UserLogIn userInfo)
     {
+        if(userRepository.existsByUsername(userInfo.getUsername()) == false)
+        {
+            return 2;
+        }
+
         User findUser = userRepository.findByUsername(userInfo.getUsername());
 
         if(!findUser.equals(null) && findUser.getPassword().equals(userInfo.getPassword()))

@@ -48,10 +48,10 @@ public class UserRestController {
     {
         int check = userService.LogIn(loginInfo);
 
-/*        if(check == 2)
+        if(check == 2)
         {
             return ResponseEntity.ok(ResponseCheck.Error(USER_USERNAME_NOTFOUND));
-        }*/
+        }
         if(check == 3)
         {
             return ResponseEntity.ok(ResponseCheck.Error(USER_PASSWORD_INCOREECT));
