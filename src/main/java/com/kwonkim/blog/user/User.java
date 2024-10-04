@@ -1,14 +1,16 @@
 package com.kwonkim.blog.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Builder
 public class User {
 
     @Id
@@ -16,8 +18,11 @@ public class User {
     @Column(name = "user_id")
     private int id;
 
+/*    @Column(name = "user_uuid", columnDefinition = "BINARY(16)", nullable = false, unique = true)
+    private UUID uuid;*/
+
     @Column(nullable = false, unique = true)
-    private String username;
+    private String username; // ID
 
     @Column(nullable = false)
     private String password;
@@ -26,5 +31,5 @@ public class User {
     private String email;
 
     @Column(nullable = false, unique = true)
-    private String nickname;
+    private String nickname; // 이름
 }

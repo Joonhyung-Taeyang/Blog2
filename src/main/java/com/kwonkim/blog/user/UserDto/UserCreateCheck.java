@@ -6,8 +6,8 @@ import java.util.UUID;
 
 @Getter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 @AllArgsConstructor
 public class UserCreateCheck {
-    private UUID user_uuid;
+    private int id;
 }
