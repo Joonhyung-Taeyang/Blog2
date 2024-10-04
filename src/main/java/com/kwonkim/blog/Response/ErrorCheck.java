@@ -6,9 +6,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorCheck {
-    USER_ID_DUPLICATION(2, "아이디 중복"),
-    USER_NICKNAME_DUPLICATION(3, "닉네임중복"),
-    USER_EMAIL_DUPLICATION(4, "이메일 중복"),
+    USER_USERNAME_DUPLICATION(401, "유저 네임 중복"),
+    USER_EMAIL_DUPLICATION(401, "이메일 중복"),
+    USER_NICKNAME_DUPLICATION(401, "닉네임 중복"),
+    USER_USERNAME_NOTFOUND(401, "유저 네임을 찾을 수 없음"),
+    USER_PASSWORD_INCOREECT(401, "잘못된 비밀번호"),
 
     ;
 
