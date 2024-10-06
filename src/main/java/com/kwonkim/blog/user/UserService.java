@@ -101,30 +101,27 @@ public class UserService {
         {
             User user = userRepository.findByEmail(userInfo.getEmail());
 
-            UserFindResponse userFindResponse = new UserFindResponse();
-
-
             return UserFindResponse.builder()
                     .username(user.getUsername())
                     .check(true)
                     .build();
-
         }
     }
 
 
-/*    public int ChangePW(UserChange userInfo) {
-        if (userRepository.existsByUsername(userInfo.getUsername()) == false)
+    public int ChangePW(UserChangePW userInfo) {
+
+        UserFindRequest userFindRequest = UserFindRequest.builder().email(userInfo.getEmail()).build();
+
+        UserFindResponse userFindResponse = SelectUsername(userFindRequest);
+
+        if
+        (userRepository.existsByEmail(userFindResponse.getUsername()) == false)
         {
-            return 2;
-        }
-        else if
-        (userRepository.existsByEmail(userInfo.getUsername()) == false) {
             return 3;
         }
 
-
-        User user = userRepository.findByUsername(userInfo.getUsername());
+        User user = userRepository.findByUsername(userFindResponse.getUsername());
 
         if (user.isDelete() == true)
         {
@@ -138,5 +135,5 @@ public class UserService {
 
             return 1;
         }
-    }*/
+    }
 }

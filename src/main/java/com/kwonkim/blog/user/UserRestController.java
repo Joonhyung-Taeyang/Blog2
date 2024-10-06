@@ -82,8 +82,8 @@ public class UserRestController {
         return ResponseEntity.ok(ResponseCheck.Data(FIND_USER_USERNAME_SUCCESS, userFindResponse));
     }
 
-/*    @PostMapping("/updatepw")
-    public ResponseEntity<ResponseCheck> changePW(@RequestBody UserChange userInfo)
+    @PostMapping("/updatepw")
+    public ResponseEntity<ResponseCheck> changePW(@RequestBody UserChangePW userInfo)
     {
         int check = userService.ChangePW(userInfo);
 
@@ -97,5 +97,5 @@ public class UserRestController {
         }
 
         return ResponseEntity.ok(ResponseCheck.Normal(CHANGE_USER_PASSWORD_SUCCESS));
-    }*/
+    }
 }
