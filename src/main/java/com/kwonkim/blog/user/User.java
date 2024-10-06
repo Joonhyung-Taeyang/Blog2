@@ -32,4 +32,7 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String nickname; // 이름
+
+    @Column(nullable = false)
+    private  boolean isDelete;
 }

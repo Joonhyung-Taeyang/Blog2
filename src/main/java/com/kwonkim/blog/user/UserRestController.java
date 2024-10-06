@@ -2,16 +2,14 @@ package com.kwonkim.blog.user;
 
 import com.kwonkim.blog.Response.ResponseCheck;
 import com.kwonkim.blog.user.UserDto.UserCreate;
-import com.kwonkim.blog.user.UserDto.UserCreateCheck;
+import com.kwonkim.blog.user.UserDto.UserDeleteCheck;
 import com.kwonkim.blog.user.UserDto.UserLogIn;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import static com.kwonkim.blog.Response.ErrorCheck.*;
-import static com.kwonkim.blog.Response.ResultCheck.CREATE_USER_SUCCESS;
-import static com.kwonkim.blog.Response.ResultCheck.LOGIN_USER_SUCCESS;
+import static com.kwonkim.blog.Response.ResultCheck.*;
 
 
 @RequestMapping(value = "/api/user")
@@ -58,6 +56,19 @@ public class UserRestController {
         }
 
         return ResponseEntity.ok(ResponseCheck.Normal(LOGIN_USER_SUCCESS));
+    }
+
+    @PostMapping("/deleteuser")
+    public ResponseEntity<ResponseCheck> Resign(@RequestBody UserDeleteCheck userResign)
+    {
+        int check = userService.Resign(userResign);
+
+        if(check == 2)
+        {
+            return ResponseEntity.ok(ResponseCheck.Error(USER_USERNAME_NOTFOUND));
+        }
+
+        return ResponseEntity.ok(ResponseCheck.Normal(RESIGN_USER_SUCCESS));
     }
 
 

@@ -1,14 +1,10 @@
 package com.kwonkim.blog.user;
 
 import com.kwonkim.blog.user.UserDto.UserCreate;
-import com.kwonkim.blog.user.UserDto.UserCreateCheck;
+import com.kwonkim.blog.user.UserDto.UserDeleteCheck;
 import com.kwonkim.blog.user.UserDto.UserLogIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-
-import static com.kwonkim.blog.Response.ErrorCheck.USER_USERNAME_NOTFOUND;
 
 @Service
 public class UserService {
@@ -22,6 +18,7 @@ public class UserService {
                 .password(userInfo.getPassword())
                 .email(userInfo.getEmail())
                 .nickname(userInfo.getNickname())
+                .isDelete(false)
                 .build();
 
         if(userRepository.existsByUsername(newUser.getUsername()))
@@ -51,17 +48,44 @@ public class UserService {
 
         User findUser = userRepository.findByUsername(userInfo.getUsername());
 
-        if(!findUser.equals(null) && findUser.getPassword().equals(userInfo.getPassword()))
+        if(findUser.isDelete() == true)
         {
-            return 1;
+            return 2;
         }
         else if(!findUser.getPassword().equals(userInfo.getPassword()))
         {
             return 3;
         }
+        else if(!findUser.equals(null) && findUser.getPassword().equals(userInfo.getPassword()))
+        {
+            return 1;
+        }
         else
         {
             return 4;
+        }
+    }
+
+    public int Resign(UserDeleteCheck userInfo)
+    {
+        if(userRepository.existsByUsername(userInfo.getUsername()) == false)
+        {
+            return 2;
+        }
+
+        User user = userRepository.findByUsername(userInfo.getUsername());
+
+        if(user.isDelete() == true)
+        {
+            return 2;
+        }
+        else
+        {
+            user.setDelete(true);
+
+            userRepository.save(user);
+
+            return 1;
         }
     }
 }
