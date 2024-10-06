@@ -10,6 +10,7 @@ public enum ErrorCheck {
     USER_EMAIL_DUPLICATION(401, "이메일 중복"),
     USER_NICKNAME_DUPLICATION(401, "닉네임 중복"),
     USER_USERNAME_NOTFOUND(401, "유저 네임을 찾을 수 없음"),
+    USER_EMAIL_NOTFOUND(401, "유저 이메일 찾을 수 없음"),
     USER_PASSWORD_INCOREECT(401, "잘못된 비밀번호"),
 
     ;

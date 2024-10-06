@@ -1,9 +1,7 @@
 package com.kwonkim.blog.user;
 
 import com.kwonkim.blog.Response.ResponseCheck;
-import com.kwonkim.blog.user.UserDto.UserCreate;
-import com.kwonkim.blog.user.UserDto.UserDeleteCheck;
-import com.kwonkim.blog.user.UserDto.UserLogIn;
+import com.kwonkim.blog.user.UserDto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,5 +69,33 @@ public class UserRestController {
         return ResponseEntity.ok(ResponseCheck.Normal(RESIGN_USER_SUCCESS));
     }
 
+    @GetMapping("/finduser")
+    public ResponseEntity<ResponseCheck> findUser(@RequestBody UserFindRequest userInfo)
+    {
+        UserFindResponse userFindResponse = userService.SelectUsername(userInfo);
 
+        if(userFindResponse.isCheck() == false)
+        {
+            return ResponseEntity.ok(ResponseCheck.Error(USER_EMAIL_NOTFOUND));
+        }
+
+        return ResponseEntity.ok(ResponseCheck.Data(FIND_USER_USERNAME_SUCCESS, userFindResponse));
+    }
+
+/*    @PostMapping("/updatepw")
+    public ResponseEntity<ResponseCheck> changePW(@RequestBody UserChange userInfo)
+    {
+        int check = userService.ChangePW(userInfo);
+
+        if(check == 2)
+        {
+            return ResponseEntity.ok(ResponseCheck.Error(USER_USERNAME_NOTFOUND));
+        }
+        else if(check == 3)
+        {
+            return ResponseEntity.ok(ResponseCheck.Error(USER_EMAIL_NOTFOUND));
+        }
+
+        return ResponseEntity.ok(ResponseCheck.Normal(CHANGE_USER_PASSWORD_SUCCESS));
+    }*/
 }

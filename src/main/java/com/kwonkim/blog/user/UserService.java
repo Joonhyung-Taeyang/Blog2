@@ -1,8 +1,6 @@
 package com.kwonkim.blog.user;
 
-import com.kwonkim.blog.user.UserDto.UserCreate;
-import com.kwonkim.blog.user.UserDto.UserDeleteCheck;
-import com.kwonkim.blog.user.UserDto.UserLogIn;
+import com.kwonkim.blog.user.UserDto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,4 +86,57 @@ public class UserService {
             return 1;
         }
     }
+
+    public UserFindResponse SelectUsername(UserFindRequest userInfo)
+    {
+        if (userRepository.existsByEmail(userInfo.getEmail()) == false)
+        {
+            UserFindResponse userFindResponse = new UserFindResponse();
+
+            userFindResponse.setCheck(false);
+
+            return userFindResponse;
+        }
+        else
+        {
+            User user = userRepository.findByEmail(userInfo.getEmail());
+
+            UserFindResponse userFindResponse = new UserFindResponse();
+
+
+            return UserFindResponse.builder()
+                    .username(user.getUsername())
+                    .check(true)
+                    .build();
+
+        }
+    }
+
+
+/*    public int ChangePW(UserChange userInfo) {
+        if (userRepository.existsByUsername(userInfo.getUsername()) == false)
+        {
+            return 2;
+        }
+        else if
+        (userRepository.existsByEmail(userInfo.getUsername()) == false) {
+            return 3;
+        }
+
+
+        User user = userRepository.findByUsername(userInfo.getUsername());
+
+        if (user.isDelete() == true)
+        {
+            return 2;
+        }
+        else
+        {
+            user.setPassword(userInfo.getPassword());
+
+            userRepository.save(user);
+
+            return 1;
+        }
+    }*/
 }
