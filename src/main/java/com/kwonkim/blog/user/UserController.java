@@ -1,21 +1,18 @@
 package com.kwonkim.blog.user;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequiredArgsConstructor
 public class UserController {
 
-    @GetMapping("/join")
+    @GetMapping("/joinForm")
     public String joinForm() {
         return "join";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginFrom")
     public String loginForm() {
         return "login";
     }
-
 }

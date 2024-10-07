@@ -16,7 +16,6 @@ public class UserService {
                 .password(userInfo.getPassword())
                 .email(userInfo.getEmail())
                 .nickname(userInfo.getNickname())
-                .isDelete(false)
                 .build();
 
         if(userRepository.existsByUsername(newUser.getUsername()))
@@ -46,10 +45,6 @@ public class UserService {
 
         User findUser = userRepository.findByUsername(userInfo.getUsername());
 
-        if(findUser.isDelete() == true)
-        {
-            return 2;
-        }
         else if(!findUser.getPassword().equals(userInfo.getPassword()))
         {
             return 3;

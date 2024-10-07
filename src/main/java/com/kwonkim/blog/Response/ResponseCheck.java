@@ -17,7 +17,7 @@ public class ResponseCheck {
         return new ResponseCheck(resultCheck);
     }
 
-    public static  ResponseCheck Error(ErrorCheck errorCheck)
+    public static ResponseCheck Error(ErrorCheck errorCheck)
     {
         return new ResponseCheck(errorCheck);
     }
