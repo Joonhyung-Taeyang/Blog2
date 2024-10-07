@@ -26,4 +26,6 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String nickname; // 사용자의 닉네임
+
+    private boolean isDelete;
 }

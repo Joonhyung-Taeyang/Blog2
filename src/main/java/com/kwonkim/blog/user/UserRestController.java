@@ -4,6 +4,7 @@ import com.kwonkim.blog.Response.ResponseCheck;
 import com.kwonkim.blog.user.UserDto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,25 +23,25 @@ public class UserRestController {
     /**
      * 사용자 회원가입 요청을 받는 컨트롤러
      *
-     * @method POST
      * @param userInfo 클라이언트로부터 username, password, email, nickname을 전달받음
-     * @return 1: 정상 가입, 2: 중복된 아이디, 3: 중복된 이메일, 4: 중복된 닉네임
+     * @return HTTP 상태 코드 + 세부 메시지
+     * @method POST
      */
     @PostMapping("/signup")
-    public ResponseEntity<ResponseCheck> Signup(@RequestBody UserCreate userInfo) {
+    public ResponseEntity<String> Signup(@RequestBody UserCreate userInfo) {
 
-        int check = userService.Signup(userInfo);
-
-        switch (check) {
+        switch (userService.Signup(userInfo)) {
             case 1:
-                return ResponseEntity.ok(ResponseCheck.Normal(CREATE_USER_SUCCESS));
+                return ResponseEntity.ok("회원가입이 완료되었습니다.");
             case 2:
-                return ResponseEntity.ok(ResponseCheck.Error(USER_USERNAME_DUPLICATION));
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 사용 중인 아이디입니다.");
             case 3:
-                return ResponseEntity.ok(ResponseCheck.Error(USER_EMAIL_DUPLICATION));
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 사용 중인 이메일입니다.");
             case 4:
-                return ResponseEntity.ok(ResponseCheck.Error(USER_NICKNAME_DUPLICATION));
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 사용 중인 닉네임입니다.");
         }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("예기치 못한 오류가 발생했습니다.");
     }
 
     @PostMapping("/login")
