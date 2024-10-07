@@ -2,6 +2,7 @@ package com.kwonkim.blog.user;
 
 import com.kwonkim.blog.Response.ResponseCheck;
 import com.kwonkim.blog.user.UserDto.*;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseCheck> LogIn(@RequestBody UserLogIn loginInfo) {
+    public ResponseEntity<ResponseCheck> LogIn(@RequestBody UserLogIn loginInfo, HttpSession session) {
         int check = userService.LogIn(loginInfo);
 
         if (check == 2) {
@@ -56,6 +57,7 @@ public class UserRestController {
             return ResponseEntity.ok(ResponseCheck.Error(USER_PASSWORD_INCOREECT));
         }
 
+        session.setAttribute("user", loginInfo.getUsername());
         return ResponseEntity.ok(ResponseCheck.Normal(LOGIN_USER_SUCCESS));
     }
 
