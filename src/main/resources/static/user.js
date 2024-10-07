@@ -11,10 +11,10 @@ let index = {
     save: function () {
         //alert('user의 save함수 호출됨');
         let data = {
-            username: $("#username").val(),
-            password: $("#password").val(),
-            nickname: $("#nickname").val(),
-            email: $("#email").val()
+            username: $("#username").val().trim() || null, // 빈 문자열은 null로
+            password: $("#password").val().trim() || null,
+            nickname: $("#nickname").val().trim() || null,
+            email: $("#email").val().trim() || null
         };
 
         //console.log(data);

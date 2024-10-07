@@ -24,15 +24,16 @@ public class UserRestController {
      * 사용자 회원가입 요청을 받는 컨트롤러
      *
      * @param userInfo 클라이언트로부터 username, password, email, nickname을 전달받음
-     * @return HTTP 상태 코드 + 세부 메시지
-     * @method POST
+     * @return HTTP 상태 코드 세팅 + 세부 메시지
      */
     @PostMapping("/signup")
     public ResponseEntity<String> Signup(@RequestBody UserCreate userInfo) {
 
         switch (userService.Signup(userInfo)) {
-            case 1:
+            case 0:
                 return ResponseEntity.ok("회원가입이 완료되었습니다.");
+            case 1:
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("모든 항목을 입력해 주세요.");
             case 2:
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 사용 중인 아이디입니다.");
             case 3:
