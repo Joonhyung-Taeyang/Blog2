@@ -32,21 +32,47 @@ public class UserService {
     }
 
     public int LogIn(UserLogIn userInfo) {
-        if (userRepository.existsByUsername(userInfo.getUsername()) == false) {
-            return 2;
-        }
 
+        // 넘어온 로그인 정보
+        String username = userInfo.getUsername();
+        String password = userInfo.getPassword();
+
+        // DB에서 사용자가 존재하는 지 확인
         User findUser = userRepository.findByUsername(userInfo.getUsername());
 
-        if (findUser.isDelete() == true) {
-            return 2;
-        } else if (!findUser.getPassword().equals(userInfo.getPassword())) {
-            return 3;
-        } else if (!findUser.equals(null) && findUser.getPassword().equals(userInfo.getPassword())) {
-            return 1;
-        } else {
-            return 4;
+        // 사용자가 DB에 존재하고 비밀번호도 일치하는 경우
+        if (findUser != null && findUser.getPassword().equals(password)) {
+            return 0;
         }
+        // 사용자가 DB에 존재하지 않는 경우
+        else if (findUser == null) {
+            return 1;
+        }
+        // 그 외의 경우 즉, 비밀번호가 일치하지 않는 경우
+        else {
+            return 2;
+        }
+
+
+//        if(userRepository.existsByUsername(username) &&
+//        userRepository.findByUsername()
+//        ) {}
+//
+//        if (userRepository.existsByUsername(userInfo.getUsername()) == false) {
+//            return 2;
+//        }
+//
+//        User findUser = userRepository.findByUsername(userInfo.getUsername());
+//
+//        if (findUser.isDelete() == true) {
+//            return 2;
+//        } else if (!findUser.getPassword().equals(userInfo.getPassword())) {
+//            return 0;
+//        } else if (!findUser.equals(null) && findUser.getPassword().equals(userInfo.getPassword())) {
+//            return 1;
+//        } else {
+//            return 4;
+//        }
     }
 
     public int Resign(UserDeleteCheck userInfo) {

@@ -28,7 +28,7 @@ public class UserRestController {
      * @return HTTP 상태 코드 세팅 + 세부 메시지
      */
     @PostMapping("/signup")
-    public ResponseEntity<String> Signup(@RequestBody UserCreate userInfo) {
+    public ResponseEntity<String> signup(@RequestBody UserCreate userInfo) {
 
         switch (userService.Signup(userInfo)) {
             case 0:
@@ -47,18 +47,30 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseCheck> LogIn(@RequestBody UserLogIn loginInfo, HttpSession session) {
-        int check = userService.LogIn(loginInfo);
+    public ResponseEntity<String> login(@RequestBody UserLogIn loginInfo, HttpSession session) {
 
-        if (check == 2) {
-            return ResponseEntity.ok(ResponseCheck.Error(USER_USERNAME_NOTFOUND));
-        }
-        if (check == 3) {
-            return ResponseEntity.ok(ResponseCheck.Error(USER_PASSWORD_INCOREECT));
+        switch (userService.LogIn(loginInfo)){
+            case 0:
+                return ResponseEntity.ok("");
+            case 1:
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("존재하지 않는 사용자입니다.");
+            case 2:
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 일치하지 않습니다.");
         }
 
-        session.setAttribute("user", loginInfo.getUsername());
-        return ResponseEntity.ok(ResponseCheck.Normal(LOGIN_USER_SUCCESS));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("예기치 못한 오류가 발생했습니다.");
+
+        //int check = userService.LogIn(loginInfo);
+//
+//        if (check == 2) {
+//            return ResponseEntity.ok(ResponseCheck.Error(USER_USERNAME_NOTFOUND));
+//        }
+//        if (check == 3) {
+//            return ResponseEntity.ok(ResponseCheck.Error(USER_PASSWORD_INCOREECT));
+//        }
+//
+//        session.setAttribute("user", loginInfo.getUsername());
+//        return ResponseEntity.ok(ResponseCheck.Normal(LOGIN_USER_SUCCESS));
     }
 
     @PostMapping("/deleteuser")
