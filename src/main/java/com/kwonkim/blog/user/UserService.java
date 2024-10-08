@@ -38,7 +38,7 @@ public class UserService {
         String password = userInfo.getPassword();
 
         // DB에서 사용자가 존재하는 지 확인
-        User findUser = userRepository.findByUsername(userInfo.getUsername());
+        User findUser = userRepository.findByUsername(username);
 
         // 사용자가 DB에 존재하고 비밀번호도 일치하는 경우
         if (findUser != null && findUser.getPassword().equals(password)) {
